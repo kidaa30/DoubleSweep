@@ -1,0 +1,34 @@
+\documentclass[]{article}
+\usepackage[utf8]{inputenc}
+\begin{document}
+
+\title{Title}
+\author{Author}
+\date{Today}
+\maketitle{Introduzione:}
+
+Il diametro di un grafo è uno dei parametri più importanti  per quanto concerne la teoria dei grafi e sta inoltre trovando sempre più sviluppi nell'analisi di reti complesse.
+Tuttavia gli algoritmi noti per il suo calcolo,anche quelli che producono valori approssimativi,sono eccessivamente esosi in termini di spazio e/o tempo.
+L'approccio che qui si propone per il calcolo del diametro è un semplice e veloce metodo per il calcolo di un lower bound per il diametro di grafi orientati che, spesso e volentieri, coincide con il diametro stesso o che comunque, si discosta di poco da esso.
+\\
+\\
+\\
+
+In questo trattato, si considera un grafo diretto,non pesato,G=(V,E) con n=$\mid $V$\mid $ vertici  e m=$\mid$E$\mid$ archi.
+Si denota con d(u,v) la distanza tra il vertice u e il vertice v,intesa come cammino minimo tra i due vertici in G,con ecc(v),l'eccentricità del vertice v,ossia la massima distanza tra il vertice v e ogni altro vertice u del grafo e infine con D=$max_u_,_v  $d(u,v)=$max_v$ ecc(v),il diametro di G.\\
+Calcolare tutte le distanze da un vertice verso tutti gli altri (e così la sua eccentricità) ha un costo di tempo e spazio pari a O(m) usando una visita in ampiezza (BFS).Per ottenere dunque il diametro,questa eccentricità deve essere calcolata per ogni vertice del grafo per un costo temporale complessivo pari a O(n$\cdot $m) usando n BFS.Anche usando l'algoritmo di Dijkstra per calcolare il cammino minimo da un vertice verso tutti gli altri si ottiene una complessità proibitiva su grafi più complessi,in quanto l'algoritmo deve essere eseguito su ogni nodo del grafo per ottenere tra questi cammini il valore massimo che corrisponde al diametro.\\
+L'idea alla base dell'algoritmo che qui si presenta è quella di calcolarsi due valori,un lower bound Lb e un upper bound Up tali che Lb $\leq$ D $\leq $ Up.
+Il metodo che qui si presenta è tanto semplice quanto efficace,in quanto consente di ottenere un lower bound che poco si discosta dal valore del diametro o che talvolta è equivalente.Notiamo come,eseguendo una BFS da un nodo del grafo,l'altezza dell'albero corrispondente sarà al più grande quanto il diametro stesso ma non eccederà mai questo valore essendo la distanza dal nodo radice a uno dei nodi dell'ultimo livello dell'albero il cammino minimo tra i due.
+
+Dato dunque un grafo diretto,prima di tutto viene calcolata la componente connessa più grande,infatti è all'interno di essa che sarà presente il cammino tra due nodi che corrisponderà al valore del diametro.Dopo il calcolo della componente connessa più grande,l'intero algoritmo si svolge con due semplici  visite in ampiezza,la prima,da un nodo scelto casualmente,la seconda da uno dei nodi posti alla distanza massima dal nodo precedentemente scelto,ma invertendo l'orientamento degli archi del grafo.Il lower bound scelto,è il valore massimo tra le due altezze degli alberi ottenuti dalle corrispettive visite in ampiezza.Si nota comunque come,nelle prove effettuate,il valore scelto sia sempre stato quello corrispondente all'esecuzione della seconda BFS,e come anzi il valore corrispondente alla prima BFS fosse prossimo alla metà del diametro reale.
+Il vantaggio di questo approccio in ottica di tempo e spazio è enorme,si ha infatti quasi la garanzia di trovare il diametro reale dopo un numero arbitrariamente basso di esecuzioni iterando da diversi nodi casuali al costo di poche visite in ampiezza.Già su grafi con alcune decine di migliaia di nodi la differenza tra questo metodo e il metodo esaustivo è sostanziale.\\
+
+
+Implementazione:\\
+L'algoritmo è stato implementato usando Java,i grafi sono stati rappresentati come liste di adiacenza,una per l'orientamento originale del grafo e una con l'orientamento degli archi invertito da utilizzare per effettuare la seconda BFS.Queste ultime sono state realizzate tramite array bidimensionali e non tramite array dinamici per un miglior utilizzo della memoria  in quanto i primi consentono di ottenere informazioni quali la lunghezza dell'array o l'elemento all'i-esimo posto in tempo costante,mentre le seconde iterano sull'intera lista rendendo l'intero algoritmo decisamente meno efficiente quando si trattano dati più consistenti.
+Sempre in ottica di ottimizzare la memoria,i grafi sono letti da file di testo composti,rispettivamente,da: numero totale dei nodi,In degree e Out degree per ogni nodo che indicano il numero di archi incidenti sul nodo e il numero di archi uscenti dal nodo,lista degli archi indicati come coppie di nodi in cui il secondo è il nodo su cui l'arco è incidente.Pertanto sono state implementate delle opportune classi parser  per convertire i data set utilizzati come test in questo formato.Leggendo, dunque, il file composto in questo modo,sappiamo immediatamente,dato il numero totale dei nodi, quanta memoria allocare per il primo array e,successivamente,dati i degree dei nodi, quanta memoria allocare per gli array contenuti nel primo;Leggendo infine gli archi,l'algoritmo semplicemente popola gli array corrispondenti all'id del nodo che ha letto.L'unico limite hardware è,ovviamente,che il numero dei dati non superi la quantità di memoria centrale altrimenti sarebbe necessario eseguire degli swap di memoria che ne degraderebbero le prestazioni.
+
+
+
+
+\end{document}
