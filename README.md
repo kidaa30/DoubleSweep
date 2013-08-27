@@ -11,4 +11,4 @@
 * Compute a Depth-first search from that node and choose a node at max distance from a, lets say b
 * Reverse the orientation of all arcs
 * From b compute another Depth-first search
-* The distance from b to the node at max distance from it using the second Depth-first search is out lower bound
+* The distance from b to the node at max distance from it using the second Depth-first search is our lower bound
