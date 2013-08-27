@@ -2,7 +2,6 @@ import java.io.*;
 import java.util.*;
 
 
-//import javax.imageio.IIOException;
 public class Main {
 
 	static int[] cc;
@@ -50,7 +49,6 @@ public class Main {
 		 }
 		 
 		 int ncc=ccindex+1;
-//		 System.out.println("cc"+ncc);
 		 int[] fcc=new int[ncc];
 		 for(int i=0; i< fcc.length; i++){
 			 fcc[i]=0;
@@ -59,7 +57,6 @@ public class Main {
 			 fcc[cc[i]]++;
 		 }
 		 int mostfrequent=getIndexOfMax(fcc);
-		 //System.out.println("Numero nodi in cc piu grande"+fcc[mostfrequent]);
 		 int[] res=new int[fcc[mostfrequent]];
 		 int j=-1;
 		 for(int i=0; i< g.length; i++){
@@ -94,13 +91,11 @@ public class Main {
 		   
 			do {
 			   z=partial.pop();
-//			   System.out.println(z);
 			   cc[z]=ccindex;
 			   complete[z]=true;
 			
 			} while (z!=u);
 			representatives.pop();
-//			System.out.println("Nuova componente fortemente connessa"+ ccindex+" "+tyu);
 	    }
 	}
   
@@ -185,7 +180,6 @@ public class Main {
     		   if (arrayNodi[g[a[i]][j]]!=-1) contatore++;
     		   
     	   }
-//    	   System.out.println(contatore);
     	   int[] figli=new int[contatore];
     	   CClist[i]=figli;
     	   
@@ -292,14 +286,7 @@ return CClist;
 	        
 	        for(int i=0;i<cc.length;i++){
 	        	Output.print(i+" ");
-//	        	int counter=0;
-//	        	for(int j=0;j<cc.size();j++){
-//	        		for(int z=0;z<cc.get(j).size();z++){
-//	        			if (cc.get(j).get(z)==i) counter++;
-//	        		}
-//	        	}
 	        	Output.print(cc[i].length+" ");
-//	        	Output.println(counter);
 	        	Output.println(ccIn[i].length);
 	        }
 	        
@@ -338,20 +325,17 @@ return CClist;
   
   public static  void main(String[] args) throws IOException{
 	  
- Vector<Vector<Integer>> snapOut=convertFile.getIntegersFromSnapIf("/users/valerio/Desktop/grafi/soc-sign-Slashdot081106.txt").get(0);  
- Vector<Vector<Integer>> snapIn=convertFile.getIntegersFromSnapIf("/users/valerio/Desktop/grafi/soc-sign-Slashdot081106.txt").get(1);  
-////
+ Vector<Vector<Integer>> snapOut=convertFile.getIntegersFromSnapIf("/path/to/file/soc-sign-Slashdot081106.txt").get(0);  
+ Vector<Vector<Integer>> snapIn=convertFile.getIntegersFromSnapIf("/path/to/file/soc-sign-Slashdot081106.txt").get(1);  
+
  convertFile.writeCorrectFormatIf(snapOut,snapIn,"/users/valerio/Desktop/dle.txt");
  System.out.println("File convertito");
 /////////////////////////////////////////////////////////////////////////////////////////////	   
  int[][][] graph=getIntegersFromFile("/users/valerio/Desktop/dle.txt");
  int[][] graphout=graph[0];
  int[][] graphin=graph[1];
-//int[]comp=stronglyConnectedComponent(graphout);
+
  
-
-
-
  System.out.println("Calcolo componente connessa");
  int[][] compConnOut=vectorCC(stronglyConnectedComponent(graphout),graphout);
  int[][] compConnIn=vectorCC(stronglyConnectedComponent(graphin),graphin);
@@ -364,10 +348,10 @@ return CClist;
  
 int[][] graphfw=getIntegersFromFile("/users/valerio/Desktop/CCgrafo.txt")[0];
 int[][] graphbw=getIntegersFromFile("/users/valerio/Desktop/CCgrafo.txt")[1];
-//	
+
 System.out.println("Calcolo diametro");
 System.out.println("Diametro esatto " + getDiametro(graphfw));
-//
+
 int r=(int) (Math.random()*graphfw.length);
 int[] s=BFS2(graphfw,r);
 int a=getIndexOfMax(s);
@@ -375,8 +359,6 @@ int[] t=BFS2(graphbw,a);
 int b=getIndexOfMax(t);
 System.out.println("First lb " + s[a]+" "+t[r]);
 System.out.println("Second lb " + t[b]);
-//
-//	
 
 
   }
